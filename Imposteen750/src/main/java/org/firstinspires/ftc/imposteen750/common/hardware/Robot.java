@@ -27,8 +27,8 @@ public class Robot {
     public SwerveDrivetrain drivetrain;
     public Localizer localizer;
 
-    public IntakeSubsystem intake;
-    public LiftSubsystem lift;
+//    public IntakeSubsystem intake;
+//    public LiftSubsystem lift;
 
     public Motor.Encoder horizontalEncoder, lateralEncoder;
 
@@ -55,9 +55,9 @@ public class Robot {
         horizontalEncoder = new MotorEx(hardwareMap, "rightFrontMotor").encoder;
         lateralEncoder = new MotorEx(hardwareMap, "leftFrontMotor").encoder;
 
-        intake = new IntakeSubsystem(hardwareMap, isAuto);
+//        intake = new IntakeSubsystem(hardwareMap, isAuto);
 
-        lift = new LiftSubsystem(hardwareMap, isAuto);
+//        lift = new LiftSubsystem(hardwareMap, isAuto);
     }
 
     /**
@@ -97,16 +97,16 @@ public class Robot {
      * Resets the lift and intake slide encoders.
      */
     public void reset() {
-        lift.liftEncoder.resetEncoder();
-        intake.extensionEncoder.resetEncoder();
+//        lift.liftEncoder.resetEncoder();
+//        intake.extensionEncoder.resetEncoder();
     }
 
     /**
      * Bulk caches every encoder position on the robot.
      */
     public void read() {
-        intake.read();
-        lift.read();
+//        intake.read();
+//        lift.read();
         for (SwerveModule module : drivetrain.modules) {
             module.read();
         }
@@ -116,8 +116,8 @@ public class Robot {
      * Bulk writes to all motors within the robot.
      */
     public void write() {
-        intake.write();
-        lift.write();
+//        intake.write();
+//        lift.write();
         if (this.isAuto) {
             drivetrain.writeAuto();
         } else {
@@ -132,8 +132,8 @@ public class Robot {
     public void writeFile() {
         FileInterface.clear();
         FileInterface.write(FileInterface.IMU, String.valueOf(getAngle()));
-        FileInterface.write(FileInterface.INTAKE, String.valueOf(intake.getPos()));
-        FileInterface.write(FileInterface.LIFT, String.valueOf(lift.getPos()));
+//        FileInterface.write(FileInterface.INTAKE, String.valueOf(intake.getPos()));
+//        FileInterface.write(FileInterface.LIFT, String.valueOf(lift.getPos()));
     }
 
     /**
@@ -141,8 +141,8 @@ public class Robot {
      * For use in TeleOp, for field centric drive.
      */
     public void readFile() {
-        intake.offset = Integer.parseInt(FileInterface.read(FileInterface.INTAKE));
-        lift.offset = Integer.parseInt(FileInterface.read(FileInterface.LIFT));
+//        intake.offset = Integer.parseInt(FileInterface.read(FileInterface.INTAKE));
+//        lift.offset = Integer.parseInt(FileInterface.read(FileInterface.LIFT));
         SwerveDrivetrain.imuOff = -1.75;
     }
 }
