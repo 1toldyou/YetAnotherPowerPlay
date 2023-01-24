@@ -31,13 +31,13 @@ public class Testing extends OpMode {
         PhotonCore.experimental.setMaximumParallelCommands(8);
         PhotonCore.enable();
 
-        robot.intake.extensionEncoder.resetEncoder();
-        robot.lift.liftEncoder.resetEncoder();
-        robot.intake.setFourbar(0.41);
-        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
-        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
-        robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
-        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
+//        robot.intake.extensionEncoder.resetEncoder();
+//        robot.lift.liftEncoder.resetEncoder();
+//        robot.intake.setFourbar(0.41);
+//        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
+//        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
+//        robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
+//        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
     }
 
     @Override
@@ -50,14 +50,14 @@ public class Testing extends OpMode {
 
         robot.read();
         CommandScheduler.getInstance().run();
-        robot.intake.loop();
-        robot.lift.loop();
+//        robot.intake.loop();
+//        robot.lift.loop();
         robot.write();
 
-        telemetry.addData("STATE: ", robot.intake.state);
-        telemetry.addData("STATE: ", robot.lift.state);
-        telemetry.addData("intake ", robot.intake.getPos());
-        telemetry.addData("lift ", robot.lift.getPos());
+//        telemetry.addData("STATE: ", robot.intake.state);
+//        telemetry.addData("STATE: ", robot.lift.state);
+//        telemetry.addData("intake ", robot.intake.getPos());
+//        telemetry.addData("lift ", robot.lift.getPos());
 
         double loop = System.nanoTime();
         telemetry.addData("hz ", 1000000000 / (loop - loopTime));

@@ -56,12 +56,12 @@ public class LeftAutoFull extends LinearOpMode {
         );
 
         robot.localizer = localizer;
-        robot.intake.update(IntakeSubsystem.FourbarState.TRANSITION);
-        robot.intake.update(IntakeSubsystem.ClawState.CLOSED);
-        robot.lift.update(LiftSubsystem.LatchState.LATCHED);
-        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
-        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
-        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
+//        robot.intake.update(IntakeSubsystem.FourbarState.TRANSITION);
+//        robot.intake.update(IntakeSubsystem.ClawState.CLOSED);
+//        robot.lift.update(LiftSubsystem.LatchState.LATCHED);
+//        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
+//        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
+//        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
 
         PhotonCore.CONTROL_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         PhotonCore.EXPANSION_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
@@ -144,10 +144,10 @@ public class LeftAutoFull extends LinearOpMode {
                                                 new AutoCycleCommand(robot, CYCLE_GRAB_POSITIONS[2]),
                                                 new AutoCycleCommand(robot, CYCLE_GRAB_POSITIONS[3]),
                                                 new AutoCycleCommand(robot, CYCLE_GRAB_POSITIONS[4]),
-                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.FourbarState.TRANSITION)),
-                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.OPEN)),
-                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.PivotState.FLAT)),
-                                                new InstantCommand(() -> robot.lift.update(LiftSubsystem.LatchState.LATCHED)),
+//                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.FourbarState.TRANSITION)),
+//                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.OPEN)),
+//                                                new InstantCommand(() -> robot.intake.update(IntakeSubsystem.PivotState.FLAT)),
+//                                                new InstantCommand(() -> robot.lift.update(LiftSubsystem.LatchState.LATCHED)),
 //                                                new LiftPositionCommand(robot.lift, 585, 6000, 7500, 30, 1000, LiftSubsystem.STATE.FAILED_EXTEND),
 //                                                new WaitCommand(0),
 //                                                new LiftPositionCommand(robot.lift, -5, 6000, 7500, 10, 1000, LiftSubsystem.STATE.FAILED_RETRACT)
@@ -171,36 +171,36 @@ public class LeftAutoFull extends LinearOpMode {
         while (opModeIsActive()) {
             robot.read();
 
-            if (robot.intake.state == IntakeSubsystem.STATE.FAILED_RETRACT || robot.lift.state == LiftSubsystem.STATE.FAILED_RETRACT) {
-                CommandScheduler.getInstance().reset();
-                CommandScheduler.getInstance().schedule(
-                        new SequentialCommandGroup(
-                                new ConditionalCommand(
-                                        new PositionCommand(drivetrain, localizer,
-                                                position == SleeveDetection.ParkingPosition.CENTER ? new Pose(-3, 49, 0) :
-                                                        position == SleeveDetection.ParkingPosition.RIGHT ? new Pose(23, 51, 0) :
-                                                                new Pose(-25, 49, 0), 2000, 2000, hardwareMap.voltageSensor.iterator().next().getVoltage()
-                                        ), new PositionCommand(drivetrain, localizer,
-                                        position == SleeveDetection.ParkingPosition.LEFT ? new Pose(44, 52, 0) :
-                                                position == SleeveDetection.ParkingPosition.CENTER ? new Pose(67, 51, 0) :
-                                                        new Pose(90, 49, 0), 2000, 2000, hardwareMap.voltageSensor.iterator().next().getVoltage()),
-                                        side_left
-                                ),
-                                new InstantCommand(this::requestOpModeStop)
-                        )
-                );
-            }
+//            if (robot.intake.state == IntakeSubsystem.STATE.FAILED_RETRACT || robot.lift.state == LiftSubsystem.STATE.FAILED_RETRACT) {
+//                CommandScheduler.getInstance().reset();
+//                CommandScheduler.getInstance().schedule(
+//                        new SequentialCommandGroup(
+//                                new ConditionalCommand(
+//                                        new PositionCommand(drivetrain, localizer,
+//                                                position == SleeveDetection.ParkingPosition.CENTER ? new Pose(-3, 49, 0) :
+//                                                        position == SleeveDetection.ParkingPosition.RIGHT ? new Pose(23, 51, 0) :
+//                                                                new Pose(-25, 49, 0), 2000, 2000, hardwareMap.voltageSensor.iterator().next().getVoltage()
+//                                        ), new PositionCommand(drivetrain, localizer,
+//                                        position == SleeveDetection.ParkingPosition.LEFT ? new Pose(44, 52, 0) :
+//                                                position == SleeveDetection.ParkingPosition.CENTER ? new Pose(67, 51, 0) :
+//                                                        new Pose(90, 49, 0), 2000, 2000, hardwareMap.voltageSensor.iterator().next().getVoltage()),
+//                                        side_left
+//                                ),
+//                                new InstantCommand(this::requestOpModeStop)
+//                        )
+//                );
+//            }
 
             CommandScheduler.getInstance().run();
-            robot.intake.loop();
-            robot.lift.loop();
+//            robot.intake.loop();
+//            robot.lift.loop();
             robot.drivetrain.updateModules();
             localizer.periodic();
 
-            telemetry.addData("STATE: ", robot.intake.state);
-            telemetry.addData("STATE: ", robot.lift.state);
-            telemetry.addData("targetPos", robot.intake.targetPosition);
-            telemetry.addData("intakePos", robot.intake.getPos());
+//            telemetry.addData("STATE: ", robot.intake.state);
+//            telemetry.addData("STATE: ", robot.lift.state);
+//            telemetry.addData("targetPos", robot.intake.targetPosition);
+//            telemetry.addData("intakePos", robot.intake.getPos());
             telemetry.addData("current pose", localizer.getPos());
 
             double loop = System.nanoTime();

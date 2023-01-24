@@ -28,7 +28,7 @@ import org.firstinspires.ftc.imposteen750.common.drive.geometry.Pose;
 import org.firstinspires.ftc.imposteen750.common.commandbase.subsystem.IntakeSubsystem;
 
 @Config
-@TeleOp(name = "OpMode👌👌😍🎶🎶😎😜😭🥰😈👺👺🤣🤣😕😜😭🥰🥰😘")
+@TeleOp(name = "True OpMode")
 public class OpMode extends CommandOpMode {
     private Robot robot;
 
@@ -70,15 +70,15 @@ public class OpMode extends CommandOpMode {
         robot = new Robot(hardwareMap, false);
         robot.reset();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        robot.intake.setFourbar(IntakeSubsystem.fourbar_transition);
-        robot.intake.offset2 = 0;
-        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
-        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
-        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
-        robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
-
-        robot.intake.extension.set(0.4);
-        robot.lift.lift.set(0.4);
+//        robot.intake.setFourbar(IntakeSubsystem.fourbar_transition);
+//        robot.intake.offset2 = 0;
+//        robot.intake.update(IntakeSubsystem.PivotState.FLAT);
+//        robot.intake.update(IntakeSubsystem.TurretState.INTAKE);
+//        robot.intake.update(IntakeSubsystem.ClawState.OPEN);
+//        robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
+//
+//        robot.intake.extension.set(0.4);
+//        robot.lift.lift.set(0.4);
         PhotonCore.CONTROL_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         PhotonCore.experimental.setMaximumParallelCommands(8);
         PhotonCore.enable();
@@ -109,10 +109,10 @@ public class OpMode extends CommandOpMode {
         boolean d1Y = gamepad1.y;
         if (d1A && !pD1A) {
             // decrease
-            robot.intake.adjustPivotOffset(-0.03);
+//            robot.intake.adjustPivotOffset(-0.03);
         } else if (d1Y && !pD1Y) {
             // increase
-            robot.intake.adjustPivotOffset(0.03);
+//            robot.intake.adjustPivotOffset(0.03);
         }
         pD1A = d1A;
         pD1Y = d1Y;
@@ -123,25 +123,25 @@ public class OpMode extends CommandOpMode {
         boolean d1DR = gamepad1.dpad_right;
         if (d1DL && !pD1DL) {
             // open latch
-            robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
+//            robot.lift.update(LiftSubsystem.LatchState.UNLATCHED);
         } else if (d1DR && !pD1DR) {
             // close latch
-            robot.lift.update(LiftSubsystem.LatchState.LATCHED);
+//            robot.lift.update(LiftSubsystem.LatchState.LATCHED);
         }
 
         // zeroing lift and intake
         boolean d1DD = gamepad1.dpad_down;
         boolean d1DU = gamepad1.dpad_up;
         if (d1DD && pD1DD) {
-            robot.lift.liftEncoder.resetEncoder();
+//            robot.lift.liftEncoder.resetEncoder();
         } else if (d1DU && pD1DU) {
-            robot.intake.extensionEncoder.resetEncoder();
+//            robot.intake.extensionEncoder.resetEncoder();
         }
         // Gamepad2
         if (gamepad2.dpad_up) {
-            robot.lift.setSlideFactor(1);
+//            robot.lift.setSlideFactor(1);
         } else if (gamepad2.dpad_down) {
-            robot.lift.setSlideFactor(-1);
+//            robot.lift.setSlideFactor(-1);
         }
 
         if (gamepad2.dpad_left && !busy) {
@@ -156,26 +156,26 @@ public class OpMode extends CommandOpMode {
         boolean dLT = (gamepad2.left_trigger > 0.3);
         boolean dRT = (gamepad2.right_trigger > 0.3);
         if (dLT && !pDLT) {
-            schedule(new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.OPEN)));
+//            schedule(new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.OPEN)));
         } else if (dRT && !pDRT) {
-            schedule(new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.CLOSED)));
+//            schedule(new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.CLOSED)));
         }
         pDLT = dLT;
         pDRT = dRT;
 
         double gamepad2_left_stick_y = gamepad2.left_stick_y;
         if (Math.abs(gamepad2_left_stick_y) > 0.2) {
-            robot.intake.setFourbarFactor(joystickScalar(gamepad2_left_stick_y, 0.2));
+//            robot.intake.setFourbarFactor(joystickScalar(gamepad2_left_stick_y, 0.2));
         }
 
         double gamepad2_left_stick_x = gamepad2.left_stick_x;
         if (Math.abs(gamepad2_left_stick_x) > 0.1) {
-            robot.intake.setSlideFactor(joystickScalar(-gamepad2_left_stick_x, 0.1));
+//            robot.intake.setSlideFactor(joystickScalar(-gamepad2_left_stick_x, 0.1));
         }
 
         double gamepad2_right_stick = gamepad2.right_stick_x;
         if (Math.abs(gamepad2_right_stick) > 0.15) {
-            robot.intake.setTurretFactor(joystickScalar(gamepad2_right_stick, 0.15));
+//            robot.intake.setTurretFactor(joystickScalar(gamepad2_right_stick, 0.15));
         }
 
         boolean dLB = gamepad2.left_bumper;
@@ -197,13 +197,13 @@ public class OpMode extends CommandOpMode {
         boolean dBY = gamepad2.y;
         boolean dBB = gamepad2.b;
         if (dBA && !pDBA) {
-            schedule(
-                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.CLOSED)),
-                    new IntakePositionCommand(robot.intake, -5, 6000, 2500, 20, 3000, IntakeSubsystem.STATE.FAILED_RETRACT),
-                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.PivotState.SCORE)),
-                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.FourbarState.SCORE)),
-                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.TurretState.INTAKE))
-            );
+//            schedule(
+//                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.ClawState.CLOSED)),
+//                    new IntakePositionCommand(robot.intake, -5, 6000, 2500, 20, 3000, IntakeSubsystem.STATE.FAILED_RETRACT),
+//                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.PivotState.SCORE)),
+//                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.FourbarState.SCORE)),
+//                    new InstantCommand(() -> robot.intake.update(IntakeSubsystem.TurretState.INTAKE))
+//            );
         } else if (dBX && !pDBX) {
             schedule(new TeleopLiftCommand(robot, 340, LiftSubsystem.STATE.FAILED_EXTEND));
         } else if (dBY && !pDBY) {
@@ -218,7 +218,7 @@ public class OpMode extends CommandOpMode {
 
         boolean d1BX = gamepad1.x;
         if (d1BX && !pD1BX) {
-            robot.intake.update(IntakeSubsystem.FourbarState.UPRIGHT);
+//            robot.intake.update(IntakeSubsystem.FourbarState.UPRIGHT);
         }
         pD1BX = d1BX;
 
@@ -240,20 +240,20 @@ public class OpMode extends CommandOpMode {
             robot.drivetrain.updateModules();
         }
 
-        robot.intake.loop();
-        robot.lift.loop();
+//        robot.intake.loop();
+//        robot.lift.loop();
         CommandScheduler.getInstance().run();
 
         robot.write();
 
         // Telemetry
-        telemetry.addData("liftCurrent", robot.lift.lift.motorEx.getCurrent(CurrentUnit.AMPS));
-        telemetry.addData("liftPos:", robot.lift.getPos());
-        telemetry.addData("liftPow:", robot.lift.power);
-        telemetry.addData("liftTarget:", robot.lift.targetPosition);
-        telemetry.addData("intakePos:", robot.intake.getPos());
-        telemetry.addData("intakePow:", robot.intake.power);
-        telemetry.addData("intakeTarget:", robot.intake.targetPosition);
+//        telemetry.addData("liftCurrent", robot.lift.lift.motorEx.getCurrent(CurrentUnit.AMPS));
+//        telemetry.addData("liftPos:", robot.lift.getPos());
+//        telemetry.addData("liftPow:", robot.lift.power);
+//        telemetry.addData("liftTarget:", robot.lift.targetPosition);
+//        telemetry.addData("intakePos:", robot.intake.getPos());
+//        telemetry.addData("intakePow:", robot.intake.power);
+//        telemetry.addData("intakeTarget:", robot.intake.targetPosition);
         telemetry.addData("imu", SwerveDrivetrain.imuOff);
 
         double loop = System.nanoTime();
@@ -267,10 +267,10 @@ public class OpMode extends CommandOpMode {
     @Override
     public void reset() {
         CommandScheduler.getInstance().reset();
-        robot.intake.extension.resetEncoder();
-        robot.intake.extension.set(0);
-        robot.lift.lift.resetEncoder();
-        robot.lift.lift.set(0);
+//        robot.intake.extension.resetEncoder();
+//        robot.intake.extension.set(0);
+//        robot.lift.lift.resetEncoder();
+//        robot.lift.lift.set(0);
     }
 
     private double joystickScalar(double num, double min) {

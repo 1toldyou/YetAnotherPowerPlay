@@ -24,8 +24,8 @@ public class EncoderTest extends OpMode {
     @Override
     public void loop() {
         robot.read();
-        telemetry.addData("liftPos", robot.lift.getPos());
-        telemetry.addData("intakePos", robot.intake.getPos());
+//        telemetry.addData("liftPos", robot.lift.getPos());
+//        telemetry.addData("intakePos", robot.intake.getPos());
 
         double loop = System.nanoTime();
         telemetry.addData("hz ", 1000000000 / (loop - loopTime));
@@ -33,7 +33,7 @@ public class EncoderTest extends OpMode {
         telemetry.update();
         PhotonCore.CONTROL_HUB.clearBulkCache();
 
-        robot.lift.lift.set(gamepad1.left_stick_y);
-        robot.intake.extension.set(gamepad1.right_stick_y);
+//        robot.lift.lift.set(gamepad1.left_stick_y);
+//        robot.intake.extension.set(gamepad1.right_stick_y);
     }
 }
